@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Cutter</title>
+</head>
+<body>
+  <h1>Multi Video Cutter</h1>
+  <form id="form">
+    <input type="file" name="videos" multiple required>
+    Start: <input type="number" name="start" value="0" required>
+    End: <input type="number" name="end" value="10" required>
+    <label><input type="checkbox" name="confirmOwnership" value="yes"> I confirm I have rights</label>
+    <button type="submit">Upload</button>
+  </form>
+  <div id="status"></div>
+
+  <script>
+    const form = document.getElementById('form');
+    const statusDiv = document.getElementById('status');
+    let batchId;
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const r = await fetch('/upload', { method: 'POST', body: fd });
+      const data = await r.json();
+      batchId = data.batchId;
+      pollStatus();
+    };
+
+    async function pollStatus() {
+      const r = await fetch(`/status/${batchId}`);
+      const s = await r.json();
+      statusDiv.innerHTML = JSON.stringify(s, null, 2);
+      if (s.zipUrl) {
+        statusDiv.innerHTML += `<br><a href="${s.zipUrl}">Download ZIP</a>`;
+      } else {
+        setTimeout(pollStatus, 2000);
+      }
+    }
+  </script>
+</body>
+</html>
