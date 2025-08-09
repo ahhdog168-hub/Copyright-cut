@@ -1,0 +1,13 @@
+{
+  "name": "zipper",
+  "version": "1.0.0",
+  "main": "zipper.js",
+  "type": "module",
+  "dependencies": {
+    "archiver": "^5.3.1",
+    "aws-sdk": "^2.1376.0",
+    "dotenv": "^16.3.1",
+    "ioredis": "^5.3.2",
+    "uuid": "^9.0.1"
+  }
+}
