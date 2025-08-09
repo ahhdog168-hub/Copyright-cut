@@ -1,0 +1,12 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "main": "worker.js",
+  "type": "module",
+  "dependencies": {
+    "aws-sdk": "^2.1376.0",
+    "dotenv": "^16.3.1",
+    "ioredis": "^5.3.2",
+    "uuid": "^9.0.1"
+  }
+}
